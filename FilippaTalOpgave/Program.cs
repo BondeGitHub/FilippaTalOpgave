@@ -11,6 +11,9 @@ namespace FilippaTalOpgave
             //
             // A B C D E F G H I
 
+            System.Diagnostics.Stopwatch s = new System.Diagnostics.Stopwatch();
+            s.Start();
+
             int temp = 0;
             int minimum = 123456789;
             int maximum = 987654321;
@@ -20,25 +23,28 @@ namespace FilippaTalOpgave
 
             for (int i = minimum; i <= maximum; i++)
             {
-                if (i%10000000 == 0)
+                if (i % 10000000 == 0)
                 {
                     Console.WriteLine($"Så langt : {i}");
                 }
-                if (ErHvertCifferUnikt(i))
-                    if (GårXOpITallet(i, 9))
-                        if (GårXOpITallet(i, 8))
-                            if (GårXOpITallet(i, 7))
-                                if (GårXOpITallet(i, 6))
-                                    if (GårXOpITallet(i, 5))
-                                        if (GårXOpITallet(i, 4))
-                                            if (GårXOpITallet(i, 3))
-                                                if (GårXOpITallet(i, 2))
-                                                    if (GårXOpITallet(i, 1))
-                                                    {
-                                                        temp = i;
-                                                        break;
-                                                    }
+                if (i % 10 > 0) //ti kan ikke gå op i tallet
+                    if (ErHvertCifferUnikt(i))
+                        if (GårXOpITallet(i, 9))
+                            if (GårXOpITallet(i, 8))
+                                if (GårXOpITallet(i, 7))
+                                    if (GårXOpITallet(i, 6))
+                                        if (GårXOpITallet(i, 5))
+                                            if (GårXOpITallet(i, 4))
+                                                if (GårXOpITallet(i, 3))
+                                                    if (GårXOpITallet(i, 2))
+                                                        if (GårXOpITallet(i, 1))
+                                                        {
+                                                            temp = i;
+                                                            break;
+                                                        }
             }
+            s.Stop();
+            Console.WriteLine($"Time used (HH:MM:SS:...) = {s.Elapsed}");
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine($"Løsningnen er : {temp} ");
@@ -55,9 +61,7 @@ namespace FilippaTalOpgave
         {
             int temp2 = FørsteXTal(InputTal3, x) % x; //Er der nogen rest ved division.
             if (temp2 == 0)
-            {
                 return true;
-            }
             return false;
         }
 
@@ -87,26 +91,24 @@ namespace FilippaTalOpgave
             string C = tempString.Substring(2, 1);
             string D = tempString.Substring(3, 1);
             string E = tempString.Substring(4, 1);
-            string F = tempString.Substring(5, 1); 
+            string F = tempString.Substring(5, 1);
             string G = tempString.Substring(6, 1);
             string H = tempString.Substring(7, 1);
             string I = tempString.Substring(8, 1);
-                        
+
             int[] array = { int.Parse(A), int.Parse(B), int.Parse(C), int.Parse(D), int.Parse(E), int.Parse(F), int.Parse(G), int.Parse(H), int.Parse(I) };
 
             for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK.
             {
                 if (array[i] == 0)
-                {
                     return false;
-                }
             }
-            
+
             for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke
             {
-                for (int j = i+1; j < array.Length; j++)
+                for (int j = i + 1; j < array.Length; j++)
                 {
-                    if (array[i] == array[j]) 
+                    if (array[i] == array[j])
                         return false;
                 }
             }
