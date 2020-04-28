@@ -66,7 +66,7 @@ namespace FilippaTalOpgave
         }
 
         /// <summary>
-        /// Tager de første x cifre af det nicifrede tal.
+        /// Tager de første x cifre af det ni cifrede tal.
         /// </summary>
         /// <param name="InputTal2"></param>
         /// <param name="FørsteX"></param>
