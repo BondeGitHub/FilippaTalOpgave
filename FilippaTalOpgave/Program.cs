@@ -24,9 +24,7 @@ namespace FilippaTalOpgave
             for (int i = minimum; i <= maximum; i++)
             {
                 if (i % 10000000 == 0)
-                {
                     Console.WriteLine($"Så langt : {i}");
-                }
                 if (i % 10 > 0) //ti kan ikke gå op i tallet
                     if (ErHvertCifferUnikt(i))
                         if (GårXOpITallet(i, 9))
@@ -79,12 +77,13 @@ namespace FilippaTalOpgave
         }
 
         /// <summary>
-        /// Finder ud af om hvert ciffer i det nicifrede tal er unikt.
+        /// Finder ud af om hvert ciffer i det ni cifrede tal er unikt.
         /// </summary>
         /// <param name="InputTal"></param>
         /// <returns></returns>
         private static bool ErHvertCifferUnikt(int InputTal)
         {
+            // A B C D E F G H I
             string tempString = InputTal.ToString();
             string A = tempString.Substring(0, 1);
             string B = tempString.Substring(1, 1);
