@@ -25,8 +25,9 @@ namespace FilippaTalOpgave
             {
                 if (i % 10000000 == 0)
                     Console.WriteLine($"Så langt : {i}");
-                if (i % 10 > 0) //ti kan ikke gå op i tallet
-                    if (ErHvertCifferUnikt(i))
+                //if (i % 10 > 0) //ti kan ikke gå op i tallet
+                    if (i % 2 > 0) //tallet skal være ulige
+                        if (ErHvertCifferUnikt(i))
                         if (GårXOpITallet(i, 9))
                             if (GårXOpITallet(i, 8))
                                 if (GårXOpITallet(i, 7))
