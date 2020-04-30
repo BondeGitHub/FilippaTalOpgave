@@ -26,12 +26,9 @@ namespace FilippaTalOpgave
             {
                 if (i % 10000000 == 0)
                     Console.WriteLine($"Så langt : {i}");
-                //if (i % 10 > 0) //ti kan ikke gå op i tallet
-                    if (i % 2 > 0) //tallet skal være ulige (da hvert andet er lige må de andre være ulige og altså overordnet set et ulige tal).
-                                   //if (ErHvertCifferUnikt(i))
-                    if (ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(i))
-                    //if(ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUligeBetterArrayCreation(i))
-                        if (GårXOpITallet(i, 9))
+                  if (i % 2 > 0) //tallet skal være ulige (da hvert andet er ciffer er lige må de andre være ulige og altså overordnet set et ulige tal).
+                     if (ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(i))
+                         if (GårXOpITallet(i, 9))
                             if (GårXOpITallet(i, 8))
                                 if (GårXOpITallet(i, 7))
                                     if (GårXOpITallet(i, 6))
@@ -117,7 +114,11 @@ namespace FilippaTalOpgave
             }
             return true;
         }
-
+         /// <summary>
+         /// Finder ud af om hvert ciffer er unikt samt undersøger ligeledes om hvert andet ciffer er skiftevis lige og ulige.
+         /// </summary>
+         /// <param name="InputTal"></param>
+         /// <returns></returns>
         private static bool ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(int InputTal)
         {
             // A B C D E F G H I
@@ -131,8 +132,6 @@ namespace FilippaTalOpgave
             string G = tempString.Substring(6, 1);
             string H = tempString.Substring(7, 1);
             string I = tempString.Substring(8, 1);
-
-            //char[] array2 = tempString.ToCharArray();
 
             int[] array = { int.Parse(A), int.Parse(B), int.Parse(C), int.Parse(D), int.Parse(E), int.Parse(F), int.Parse(G), int.Parse(H), int.Parse(I) };
 
@@ -163,6 +162,11 @@ namespace FilippaTalOpgave
             return true;
         }
 
+        /// <summary>
+        /// Finder ud af om hvert ciffer er unikt samt undersøger ligeledes om hvert andet ciffer er skiftevis lige og ulige. Benytter en anden måde til at lave array.
+        /// </summary>
+        /// <param name="InputTal"></param>
+        /// <returns></returns>
         private static bool ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUligeBetterArrayCreation(int InputTal)
         {
             // A B C D E F G H I
