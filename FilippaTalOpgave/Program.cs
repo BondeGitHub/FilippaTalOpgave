@@ -26,8 +26,9 @@ namespace FilippaTalOpgave
                 if (i % 10000000 == 0)
                     Console.WriteLine($"Så langt : {i}");
                 //if (i % 10 > 0) //ti kan ikke gå op i tallet
-                    if (i % 2 > 0) //tallet skal være ulige
-                        if (ErHvertCifferUnikt(i))
+                    if (i % 2 > 0) //tallet skal være ulige (da hvert andet er lige må de andre være ulige og altså overordnet set et ulige tal).
+                                   //if (ErHvertCifferUnikt(i))
+                    if (ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(i))
                         if (GårXOpITallet(i, 9))
                             if (GårXOpITallet(i, 8))
                                 if (GårXOpITallet(i, 7))
@@ -102,6 +103,49 @@ namespace FilippaTalOpgave
             {
                 if (array[i] == 0)
                     return false;
+            }
+
+            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke
+            {
+                for (int j = i + 1; j < array.Length; j++)
+                {
+                    if (array[i] == array[j])
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(int InputTal)
+        {
+            // A B C D E F G H I
+            string tempString = InputTal.ToString();
+            string A = tempString.Substring(0, 1);
+            string B = tempString.Substring(1, 1);
+            string C = tempString.Substring(2, 1);
+            string D = tempString.Substring(3, 1);
+            string E = tempString.Substring(4, 1);
+            string F = tempString.Substring(5, 1);
+            string G = tempString.Substring(6, 1);
+            string H = tempString.Substring(7, 1);
+            string I = tempString.Substring(8, 1);
+
+            int[] array = { int.Parse(A), int.Parse(B), int.Parse(C), int.Parse(D), int.Parse(E), int.Parse(F), int.Parse(G), int.Parse(H), int.Parse(I) };
+
+            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK.
+            {
+                if (array[i] == 0)
+                    return false;
+                if (i % 2 == 0) //array starter på index 0
+                    {
+                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige
+                        return false;
+                    }
+                if (i % 2 > 0)
+                {
+                    if (!(array[i] % 2 == 0)) //i er lige og værdien af ciffer i er lige
+                        return false;
+                }
             }
 
             for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke
