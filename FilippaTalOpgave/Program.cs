@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Diagnostics;
 
 namespace FilippaTalOpgave
 {
@@ -12,7 +13,7 @@ namespace FilippaTalOpgave
             //
             // A B C D E F G H I
 
-            System.Diagnostics.Stopwatch s = new System.Diagnostics.Stopwatch();
+            Stopwatch s = new Stopwatch();
             s.Start();
 
             int temp = 0;
