@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace FilippaTalOpgave
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
+        //static void Main(string[] args)
         {
             //Skriv tallene fra 1 til 9, så du får et ni-cifret tal, men hvor 1 skal gå op i det første ciffer, hvor 2 skal gå op i tallet, 
             //der består af de to første cifre, hvor tallet 3 går op i tallet, der består af de tre første cifre osv.
@@ -16,20 +19,53 @@ namespace FilippaTalOpgave
             Stopwatch s = new Stopwatch();
             s.Start();
 
-            int temp = 0;
             int minimum = 123456789;
             int maximum = 987654321;
 
             Console.WriteLine($"Mimimum tal : {minimum} ");
             Console.WriteLine($"Maximum tal : {maximum} ");
 
-            for (int i = minimum; i <= maximum; i++)
+            FindTheResultForTheExercise(minimum, maximum);
+
+            //await FindTheResultForTheExerciseUsingThreading(minimum, maximum);   //JAN BONDE 09-05-2020 : Use this in case the threading is to run. But it's not faster than : FindTheResultForTheExercise(minimum, maximum);
+
+            s.Stop();
+            Console.WriteLine($"Time used (HH:MM:SS:...) = {s.Elapsed}");
+       
+            Console.ReadLine();
+        }
+        /// <summary>
+        /// Divides the space into 4 and runs a task for each interval looking for the result for the exercise.
+        /// </summary>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
+        static async Task FindTheResultForTheExerciseUsingThreading(int minimum, int maximum)
+        {
+            Task t1 = Task.Run(() => FindTheResultForTheExercise(minimum, 300000000));
+            Task t2 = Task.Run(() => FindTheResultForTheExercise(300000001, 500000000));
+            Task t3 = Task.Run(() => FindTheResultForTheExercise(500000001, 700000000));
+            Task t4 = Task.Run(() => FindTheResultForTheExercise(700000001, maximum));
+            await Task.WhenAll(t1, t2, t3, t4);
+        }
+
+        /// <summary>
+        /// This is the method that finds the result for the exercise.
+        /// </summary>
+        /// <param name="inputMinimum"></param>
+        /// <param name="inputMaximum"></param>
+        //private static void FindTheResultForTheExercise(int inputMinimum, int inputMaximum)
+        //static async Task FindTheResultForTheExercise(int inputMinimum, int inputMaximum)
+        private static void FindTheResultForTheExercise(int inputMinimum, int inputMaximum)
+        {
+            int temp = 0;
+            for (int i = inputMinimum; i <= inputMaximum; i++)
             {
                 if (i % 10000000 == 0)
-                    Console.WriteLine($"Så langt : {i}");
-                  if (i % 2 > 0) //tallet skal være ulige (da hvert andet er ciffer er lige må de andre være ulige og altså overordnet set et ulige tal).
-                     if (ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(i))
-                         if (GårXOpITallet(i, 9))
+                   Console.WriteLine($"Så langt : {i}");
+                if (i % 2 > 0) //tallet skal være ulige (da hvert andet ciffer er lige må de andre være ulige og altså overordnet set et ulige tal).
+                    if (ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(i))
+                        if (GårXOpITallet(i, 9))
                             if (GårXOpITallet(i, 8))
                                 if (GårXOpITallet(i, 7))
                                     if (GårXOpITallet(i, 6))
@@ -43,14 +79,14 @@ namespace FilippaTalOpgave
                                                             break;
                                                         }
             }
-            s.Stop();
-            Console.WriteLine($"Time used (HH:MM:SS:...) = {s.Elapsed}");
+
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine($"Løsningnen er : {temp} ");
-
-            Console.ReadLine();
+            Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Løsningnen er : {temp} ");
+            if (temp == 0)
+                Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Resultatet er ikke på tråden som håndterede dette interval");
         }
+
         /// <summary>
         /// Finder ud af om X går på i tallet.
         /// </summary>
