@@ -15,6 +15,13 @@ namespace FilippaTalOpgave
             //der består af de to første cifre, hvor tallet 3 går op i tallet, der består af de tre første cifre osv.
             //
             // A B C D E F G H I
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // Below is an english translation of the above in danish:
+            //
+            // MFRs daughters Math exercise
+            // Write all the number from 1 to 9, in such a way that you get a 9 digit number, where 1 can be divided into the first digit, where 2 can be divided into the first 2 digits,
+            // where 3 can be divided into the first 3 digits, where 4 can be divided into the first 4 digits ...
 
             Stopwatch s = new Stopwatch();
             s.Start();
@@ -22,8 +29,8 @@ namespace FilippaTalOpgave
             int minimum = 123456789;
             int maximum = 987654321;
 
-            Console.WriteLine($"Mimimum tal : {minimum} ");
-            Console.WriteLine($"Maximum tal : {maximum} ");
+            Console.WriteLine($"Mimimum number : {minimum} ");
+            Console.WriteLine($"Maximum number : {maximum} ");
 
             FindTheResultForTheExercise(minimum, maximum);
 
@@ -62,8 +69,9 @@ namespace FilippaTalOpgave
             for (int i = inputMinimum; i <= inputMaximum; i++)
             {
                 if (i % 10000000 == 0)
-                   Console.WriteLine($"Så langt : {i}");
-                if (i % 2 > 0) //tallet skal være ulige (da hvert andet ciffer er lige må de andre være ulige og altså overordnet set et ulige tal).
+                   Console.WriteLine($"Reached this far : {i}");
+                if (i % 2 > 0) // tallet skal være ulige (da hvert andet ciffer er lige må de andre være ulige og altså overordnet set et ulige tal).
+                               // Above translated : the result is an odd number (as every second digit is even then the other digits are odd).    
                     if (ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(i))
                         if (GårXOpITallet(i, 9))
                             if (GårXOpITallet(i, 8))
@@ -82,27 +90,29 @@ namespace FilippaTalOpgave
 
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Løsningnen er : {temp} ");
+            Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Resultet er  -  Right answer is : {temp} ");
             if (temp == 0)
-                Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Resultatet er ikke på tråden som håndterede dette interval");
+                Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Result is not on the Thread that handled this interval - Resultatet er ikke på tråden som håndterede dette interval");
         }
 
         /// <summary>
         /// Finder ud af om X går på i tallet.
+        /// Finds out is X can be devided into the number.
         /// </summary>
         /// <param name="InputTal3"></param>
         /// <param name="x"></param>
         /// <returns></returns>
         private static bool GårXOpITallet(int InputTal3, int x)
         {
-            int temp2 = FørsteXTal(InputTal3, x) % x; //Er der nogen rest ved division.
+            int temp2 = FørsteXTal(InputTal3, x) % x; //Er der nogen rest ved division. Any remainings from the division.
             if (temp2 == 0)
                 return true;
             return false;
         }
 
         /// <summary>
-        /// Tager de første x cifre af det ni cifrede tal.
+        /// Tager de første x cifre af det ni cifrede tal. 
+        /// Deals with the first x digisted of then nine digit number.
         /// </summary>
         /// <param name="InputTal2"></param>
         /// <param name="FørsteX"></param>
@@ -115,7 +125,8 @@ namespace FilippaTalOpgave
         }
 
         /// <summary>
-        /// Finder ud af om hvert ciffer i det ni cifrede tal er unikt.
+        /// Finder ud af om hvert ciffer i det ni cifrede tal er unikt. 
+        /// Finds out if each digit in the nine digit number is unique.
         /// </summary>
         /// <param name="InputTal"></param>
         /// <returns></returns>
@@ -135,13 +146,13 @@ namespace FilippaTalOpgave
 
             int[] array = { int.Parse(A), int.Parse(B), int.Parse(C), int.Parse(D), int.Parse(E), int.Parse(F), int.Parse(G), int.Parse(H), int.Parse(I) };
 
-            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK.
+            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK. Digit "0" is not OK as it is not one of the nine og numbers.
             {
                 if (array[i] == 0)
                     return false;
             }
 
-            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke
+            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke. Are all nine digits unique.
             {
                 for (int j = i + 1; j < array.Length; j++)
                 {
@@ -153,6 +164,7 @@ namespace FilippaTalOpgave
         }
          /// <summary>
          /// Finder ud af om hvert ciffer er unikt samt undersøger ligeledes om hvert andet ciffer er skiftevis lige og ulige.
+         /// Finds out if each digit is unique and if every second digit is even and odd (shifting).
          /// </summary>
          /// <param name="InputTal"></param>
          /// <returns></returns>
@@ -172,23 +184,23 @@ namespace FilippaTalOpgave
 
             int[] array = { int.Parse(A), int.Parse(B), int.Parse(C), int.Parse(D), int.Parse(E), int.Parse(F), int.Parse(G), int.Parse(H), int.Parse(I) };
 
-            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK.
+            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK. Digit "0" is not OK.
             {
                 if (array[i] == 0)
                     return false;
-                if (i % 2 == 0) //array starter på index 0
+                if (i % 2 == 0) //array starter på index 0. Array index starts at index 0.
                     {
-                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige
+                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige. i is odd and the digit is odd.
                         return false;
                     }
                 if (i % 2 > 0)
                 {
-                    if (!(array[i] % 2 == 0)) //i er lige og værdien af ciffer i er lige
+                    if (!(array[i] % 2 == 0)) //i er lige og værdien af ciffer i er lige. i is even and the digit is even.
                         return false;
                 }
             }
 
-            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke
+            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke. Are all 9 digits unique.
             {
                 for (int j = i + 1; j < array.Length; j++)
                 {
@@ -201,6 +213,7 @@ namespace FilippaTalOpgave
 
         /// <summary>
         /// Finder ud af om hvert ciffer er unikt samt undersøger ligeledes om hvert andet ciffer er skiftevis lige og ulige. Benytter en anden måde til at lave array.
+        /// Finds out if every digit is unique and and if every second digit is even and odd (shifting). Using an other way doing array.
         /// </summary>
         /// <param name="InputTal"></param>
         /// <returns></returns>
@@ -213,13 +226,13 @@ namespace FilippaTalOpgave
 
             int[] array = array2.Select(i => Int32.Parse(i.ToString())).ToArray();
                         
-            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK.
+            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK. Digit "0" is not OK
             {
                 if (array[i] == 0)
                     return false;
-                if (i % 2 == 0) //array starter på index 0
+                if (i % 2 == 0) //array starter på index 0. Array index starts at index 0.
                 {
-                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige
+                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige. i is odd and the digit is odd.
                         return false;
                 }
                 if (i % 2 > 0)
@@ -229,7 +242,7 @@ namespace FilippaTalOpgave
                 }
             }
 
-            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke
+            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke. Are all 9 digits unique.
             {
                 for (int j = i + 1; j < array.Length; j++)
                 {
