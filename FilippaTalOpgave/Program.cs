@@ -43,7 +43,7 @@ namespace FilippaTalOpgave
             Console.ReadLine();
         }
         /// <summary>
-        /// Divides the space into 4 and runs a task for each interval looking for the result for the exercise.
+        /// Divides the space into 4 and runs a task for each interval looking for the result for the exercise. 
         /// </summary>
         /// <param name="minimum"></param>
         /// <param name="maximum"></param>
