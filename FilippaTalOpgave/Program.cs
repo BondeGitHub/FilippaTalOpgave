@@ -24,14 +24,14 @@ namespace FilippaTalOpgave
             // Write all the number from 1 to 9, in such a way that you get a 9 digit number, where 1 can be divided into the first digit, where 2 can be divided into the first 2 digits,
             // where 3 can be divided into the first 3 digits, where 4 can be divided into the first 4 digits ...
 
-            Stopwatch s = new Stopwatch();
-            s.Start();
-
             int minimum = 123456789;
             int maximum = 987654321;
 
             Console.WriteLine($"Mimimum number : {minimum} ");
             Console.WriteLine($"Maximum number : {maximum} ");
+
+            Stopwatch s = new Stopwatch();
+            s.Start();
 
             FindTheResultForTheExercise(minimum, maximum);
 
