@@ -8,7 +8,7 @@ namespace FilippaTalOpgave
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         //JBD 06-09-2020 :  static async Task Main(string[] args)
         //static void Main(string[] args)
         {
@@ -18,32 +18,50 @@ namespace FilippaTalOpgave
             // A B C D E F G H I
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //
-            // Below is an english translation of the above in danish:
+            // UK : Below is an english translation of the above in danish:
             //
-            // MFRs daughters Math exercise
-            // Write all the number from 1 to 9, in such a way that you get a 9 digit number, where 1 can be divided into the first digit, where 2 can be divided into the first 2 digits,
-            // where 3 can be divided into the first 3 digits, where 4 can be divided into the first 4 digits ...
-
+            // UK : MFRs daughters Math exercise
+            // UK : Write all the number from 1 to 9, in such a way that you get a 9 digit number, where 1 can be divided into the first digit, where 2 can be divided into the first 2 digits,
+            // UK : where 3 can be divided into the first 3 digits, where 4 can be divided into the first 4 digits ...
             int minimum = 123456789;
             int maximum = 987654321;
-
-            Console.WriteLine($"Mimimum number : {minimum} ");
-            Console.WriteLine($"Maximum number : {maximum} ");
 
             Stopwatch s = new Stopwatch();
             s.Start();
 
-            FindTheResultForTheExercise(minimum, maximum);
+            Console.WriteLine();
+            Console.Write("Type 1 for non multi threaded or type 4 for multithreaded  THIS MULTITHREADING NEEDS TO BE FIXED :  ");
+            ///TODO : 13-09-2020 : Fix that the threads keeps running although one thread has found the result. https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/how-to-cancel-a-task-and-its-children
+            if (Int32.TryParse(Console.ReadLine(), out int choice))
+            {
+                Console.WriteLine($"Mimimum number : {minimum} ");
+                Console.WriteLine($"Maximum number : {maximum} ");
+                if (choice == 1) //Non multi threaded
+                {
+                    s.Start();
+                    FindTheResultForTheExercise(minimum, maximum);
+                }
+                if (choice == 4) //Multithreaded
+                {
+                    s.Start();
+                    await FindTheResultForTheExerciseUsingThreading(minimum, maximum);
+                }
+                if (choice != 1 && choice != 4)
+                {
+                    Console.WriteLine("PROBLEMS TO BE HANDLED, not a valid option entered");
+                }
+            };
+            
+            //FindTheResultForTheExercise(minimum, maximum);
 
             //await FindTheResultForTheExerciseUsingThreading(minimum, maximum);   //JAN BONDE 09-05-2020 : Use this in case the threading is to run. But it's not faster than : FindTheResultForTheExercise(minimum, maximum). At least not at JBD personal PC.;
 
             s.Stop();
             Console.WriteLine($"Time used (HH:MM:SS:...) = {s.Elapsed}");
-
             Console.ReadLine();
         }
         /// <summary>
-        /// Divides the space into 4 and runs a task for each interval looking for the result for the exercise. 
+        /// UK : Divides the space into 4 and runs a task for each interval looking for the result for the exercise. 
         /// </summary>
         /// <param name="minimum"></param>
         /// <param name="maximum"></param>
@@ -54,11 +72,12 @@ namespace FilippaTalOpgave
             Task t2 = Task.Run(() => FindTheResultForTheExercise(300000001, 500000000));
             Task t3 = Task.Run(() => FindTheResultForTheExercise(500000001, 700000000));
             Task t4 = Task.Run(() => FindTheResultForTheExercise(700000001, maximum));
-            await Task.WhenAll(t1, t2, t3, t4);
+            //await Task.WhenAll(t1, t2, t3, t4);
+            await Task.WhenAny(t1, t2, t3, t4);
         }
 
         /// <summary>
-        /// This is the method that finds the result for the exercise.
+        /// UK : This is the method that finds the result for the exercise.
         /// </summary>
         /// <param name="inputMinimum"></param>
         /// <param name="inputMaximum"></param>
@@ -106,7 +125,7 @@ namespace FilippaTalOpgave
         private static bool DoesXDivideIntoTheNumber(int InputNumber3, int x)
         //JBD 06-09-2020 : private static bool GårXOpITallet(int InputTal3, int x)
         {
-            int temp2 = FirstXNumbers(InputNumber3, x) % x; //Er der nogen rest ved division. Any remainings from the division.
+            int temp2 = FirstXNumbers(InputNumber3, x) % x; //Er der nogen rest ved division. UK : Any remainings from the division.
             if (temp2 == 0)
                 return true;
             return false;
@@ -114,7 +133,7 @@ namespace FilippaTalOpgave
 
         /// <summary>
         /// Tager de første x cifre af det ni cifrede tal. 
-        /// Deals with the first x digisted of then nine digit number.
+        /// UK : Deals with the first x digits of then nine digit number.
         /// </summary>
         /// <param name="InputNumber2"></param>
         /// <param name="FirstX"></param>
@@ -171,11 +190,11 @@ namespace FilippaTalOpgave
          /// </summary>
          /// <param name="InputTal"></param>
          /// <returns></returns>
-        private static bool IsEveryDigitUniqAndEveryAlternateDigitEvenAndOdd(int InputTal)
-        //JBD 06-09-2020 : private static bool ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(int InputTal)
+        private static bool IsEveryDigitUniqAndEveryAlternateDigitEvenAndOdd(int InputNumber)
+        //JBD 06-09-2020 : private static bool ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUlige(int InputNumber)
         {
             // A B C D E F G H I
-            string tempString = InputTal.ToString();
+            string tempString = InputNumber.ToString();
             string A = tempString.Substring(0, 1);
             string B = tempString.Substring(1, 1);
             string C = tempString.Substring(2, 1);
@@ -188,23 +207,23 @@ namespace FilippaTalOpgave
 
             int[] array = { int.Parse(A), int.Parse(B), int.Parse(C), int.Parse(D), int.Parse(E), int.Parse(F), int.Parse(G), int.Parse(H), int.Parse(I) };
 
-            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK. Digit "0" is not OK.
+            for (int i = 0; i < array.Length; i++) //tallet "0" er ikke OK. UK : Digit "0" is not OK.
             {
                 if (array[i] == 0)
                     return false;
-                if (i % 2 == 0) //array starter på index 0. Array index starts at index 0.
-                    {
-                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige. i is odd and the digit is odd.
+                if (i % 2 == 0) //array starter på index 0. UK : Array index starts at index 0.
+                {
+                    if (!(array[i] % 2 > 0)) //i er ulige og værdien af ciffer i er ulige. UK : i is odd and the digit is odd.
                         return false;
-                    }
+                }
                 if (i % 2 > 0)
                 {
-                    if (!(array[i] % 2 == 0)) //i er lige og værdien af ciffer i er lige. i is even and the digit is even.
+                    if (!(array[i] % 2 == 0)) //i er lige og værdien af ciffer i er lige. UK : i is even and the digit is even.
                         return false;
                 }
             }
 
-            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke. Are all 9 digits unique.
+            for (int i = 0; i < array.Length; i++) //er alle de 9 cifre unikke. UK : Are all 9 digits unique.
             {
                 for (int j = i + 1; j < array.Length; j++)
                 {
@@ -260,3 +279,4 @@ namespace FilippaTalOpgave
 
     }
 }
+
