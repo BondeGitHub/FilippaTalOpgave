@@ -27,11 +27,12 @@ namespace FilippaTalOpgave
             int maximum = 987654321;
 
             Stopwatch s = new Stopwatch();
-            s.Start();
+            //JBD COMMENTED OUT ON 11-12-2022 : s.Start();
 
             Console.WriteLine();
             Console.Write("Type 1 for non multi threaded or type 4 for multithreaded  THIS MULTITHREADING NEEDS TO BE FIXED :  ");
             ///TODO : 13-09-2020 : Fix that the threads keeps running although one thread has found the result. https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/how-to-cancel-a-task-and-its-children
+            ///TODO : 12-12-2022 : Wrt cancel task : https://johnthiriet.com/cancel-asynchronous-operation-in-csharp
             if (Int32.TryParse(Console.ReadLine(), out int choice))
             {
                 Console.WriteLine($"Mimimum number : {minimum} ");
