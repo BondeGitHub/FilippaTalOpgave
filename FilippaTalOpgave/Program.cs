@@ -38,8 +38,7 @@ namespace FilippaTalOpgave
             Console.WriteLine("workerThreads : " + workerThreads + "          completionPortThreads : " + completionPortThreads);
             Console.WriteLine();
             Console.Write("Type 1 for non multi threaded or type 4 for multithreaded  THIS MULTITHREADING NEEDS TO BE FIXED :  ");
-            ///TODO : 13-09-2020 : Fix that the threads keeps running although one thread has found the result. https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/how-to-cancel-a-task-and-its-children
-            ///TODO : 12-12-2022 : Wrt cancel task : https://johnthiriet.com/cancel-asynchronous-operation-in-csharp
+            
             if (Int32.TryParse(Console.ReadLine(), out int choice))
             {
                 Console.WriteLine($"Mimimum number : {minimum} ");
@@ -154,8 +153,7 @@ namespace FilippaTalOpgave
         /// </summary>
         /// <param name="inputMinimum"></param>
         /// <param name="inputMaximum"></param>
-        //private static void FindTheResultForTheExercise(int inputMinimum, int inputMaximum)
-        //static async Task FindTheResultForTheExercise(int inputMinimum, int inputMaximum,)
+        /// <param name="token"></param>
         public static void FindTheResultForTheExerciseCancellationToken(int inputMinimum, int inputMaximum, CancellationToken token)
         {
             int temp = 0;
@@ -163,12 +161,7 @@ namespace FilippaTalOpgave
             {
                 if (token.IsCancellationRequested)
                 {
-                    //Console.WriteLine($"from {inputMinimum} to {inputMaximum}       Resultet er  -  Correct answer is : {temp} ");
-                    //Console.WriteLine("");
-                    
                     break;
-                    //token.ThrowIfCancellationRequested();
-                    //Console.ReadLine();
                 }  
                                 
                 if (i % 10000000 == 0)
@@ -191,7 +184,6 @@ namespace FilippaTalOpgave
                                                         {
                                                             temp = i;
                                                             cts.Cancel();
-                                                            //HERHERHERHER break;
                                                         }
             }
 
@@ -202,7 +194,6 @@ namespace FilippaTalOpgave
         }
 
 
-
         /// <summary>
         /// Finder ud af om X går på i tallet.
         /// UK : Finds out if X can be divided into the number.
@@ -211,7 +202,6 @@ namespace FilippaTalOpgave
         /// <param name="x"></param>
         /// <returns></returns>
         private static bool DoesXDivideIntoTheNumber(int InputNumber3, int x)
-        //JBD 06-09-2020 : private static bool GårXOpITallet(int InputTal3, int x)
         {
             int temp2 = FirstXNumbers(InputNumber3, x) % x; //Er der nogen rest ved division. UK : Any remainings from the division.
             if (temp2 == 0)
@@ -227,7 +217,6 @@ namespace FilippaTalOpgave
         /// <param name="FirstX"></param>
         /// <returns></returns>
         private static int FirstXNumbers(int InputNumber2, int FirstX)
-        //JBD 06-09-2020 : private static int FørsteXTal(int InputNumber2, int FirstX)
         {
             string tempString2 = InputNumber2.ToString();
             int tempNumber2 = int.Parse(tempString2.Substring(0, FirstX));
@@ -329,7 +318,6 @@ namespace FilippaTalOpgave
         /// <param name="InputTal"></param>
         /// <returns></returns>
         private static bool IsEveryDigitUniqAndEveryAlternateDigitEvenAndOddBetterArrayCreation(int InputTal)
-        //JBD 06-09-2020 : private static bool ErHvertCifferUniktOgHvertAndetTalSkiftevisLigeOgUligeBetterArrayCreation(int InputTal)
         {
             // A B C D E F G H I
             string tempString = InputTal.ToString();
@@ -364,7 +352,6 @@ namespace FilippaTalOpgave
             }
             return true;
         }
-
     }
 }
 
