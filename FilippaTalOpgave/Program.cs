@@ -29,8 +29,9 @@ namespace FilippaTalOpgave
 
             Stopwatch s = new Stopwatch();
             
-            int workerThreads=0;
-            int completionPortThreads =0;
+            int workerThreads = 0;
+            int completionPortThreads = 0;
+
             ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
 
             Console.WriteLine();
@@ -79,9 +80,21 @@ namespace FilippaTalOpgave
             Task t3 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(500000001, 700000000, token));
             Task t4 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(700000001, maximum, token));
 
+            //Task t1 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(minimum, 200000000, token));
+            //Task t2 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(200000001, 300000000, token));
+            //Task t3 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(300000001, 400000000, token));
+            //Task t4 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(400000001, 500000000, token));
+            //Task t5 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(500000001, 600000000, token));
+            //Task t6 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(600000001, 700000000, token));
+            //Task t7 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(700000001, 800000000, token));
+            //Task t8 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(800000001, 900000000, token));
+            //Task t9 = Task.Run(() => FindTheResultForTheExerciseCancellationToken(900000001, maximum, token));
+
             try
             {
+                
                 await Task.WhenAny(t1, t2, t3, t4);
+                //await Task.WhenAny(t1, t2, t3, t4, t5, t6, t7, t8, t9);
             }
             catch (OperationCanceledException ex)
             {
